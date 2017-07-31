@@ -10,49 +10,38 @@
 #endif
 
 #ifndef NLOG
+static HardwareSerial* sPortDebug;
+void LOG_INIT(HardwareSerial* port, word baud);
 
-#define LOG_INIT( baud )                        \
-   do                                           \
-   {                                            \
-      Serial.begin( baud );                     \
-   }                                            \
-   while( 0 )
-
-#define LOGLN( msg )                            \
-   do                                           \
-   {                                            \
-      Serial.println( F( msg ) );               \
-   }                                            \
-   while( 0 )
-
-#define LOG( msg )                              \
-   do                                           \
-   {                                            \
-      Serial.print( F( msg ) );                 \
-   }                                            \
-   while( 0 )
+#  define LOGLN(...) sPortDebug->println(__VA_ARGS__)
+#  define LOG(...) sPortDebug->print(__VA_ARGS__)
 
 #define LOGVLN( var )                           \
    do                                           \
    {                                            \
-      Serial.println( var );                    \
+      sPortDebug->println( var );               \
    }                                            \
    while( 0 )
 
 #define LOGV( var )                             \
    do                                           \
    {                                            \
-      Serial.print( var );                      \
+      sPortDebug->print( var );                 \
    }                                            \
    while( 0 )
+
+void print(const byte* array, byte length);
+#define debug_printArray(ARR,LEN) print(ARR,LEN)
 
 #else
 
 #define LOG_INIT( baud )
-#define LOGLN( msg )
-#define LOG( msg )
+#define LOGLN(...) (void)0
+#define LOG(...) (void)0
 #define LOGVLN( var )
 #define LOGV( var )
+#define debug_printArray(ARR,LEN) ((void)0)
+
 
 #endif
 

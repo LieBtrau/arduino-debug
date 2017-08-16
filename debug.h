@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-//#define DEBUG
+#define DEBUG
 //https://stackoverflow.com/questions/1644868/c-define-macro-for-debug-printing
 
 #ifdef DEBUG
@@ -16,18 +16,19 @@ static HardwareSerial* sPortDebug = &Serial;
 #  else
 #  error Unsupported target device
 #  endif
-
 void openDebug(word baud);
 void print(const byte* array, byte length);
-#define debug_printArray(ARR,LEN) print(ARR,LEN)
+#  define debug_printArray(ARR,LEN) print(ARR,LEN)
 #  define debug_println(...) sPortDebug->println(__VA_ARGS__)
 #  define debug_print(...) sPortDebug->print(__VA_ARGS__)
-#else
+#
+#else//ifdef DEBUG
+#
 #  define debug_println(...) (void)0
 #  define debug_print(...) (void)0
 #  define openDebug(...) (void)0
 #  define debug_printArray(ARR,LEN) ((void)0)
-#endif
+#endif//ifdef DEBUG
 
 #endif // DEBUG_H
 

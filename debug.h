@@ -11,7 +11,7 @@
 #  include <SoftwareSerial.h>
 static SoftwareSerial swSer(A5,A4);//RX, TX
 static SoftwareSerial* sPortDebug = &swSer;
-#  elif defined(ARDUINO_STM_NUCLEO_F103RB) || defined(ARDUINO_GENERIC_STM32F103C)
+#  elif defined(ARDUINO_STM_NUCLEO_F103RB) || defined(ARDUINO_GENERIC_STM32F103C) || defined(ARDUINO_SAM_DUE)
 static HardwareSerial* sPortDebug = &Serial;
 #  else
 #  error Unsupported target device

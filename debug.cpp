@@ -3,8 +3,8 @@
 #ifdef DEBUG
 void openDebug(word baud)
 {
-    while (!(*sPortDebug));
     sPortDebug->begin(baud);
+    while (!(*sPortDebug));
 }
 
 
